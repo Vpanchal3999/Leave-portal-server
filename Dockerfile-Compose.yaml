@@ -24,7 +24,6 @@ services:
   # Back-End 
   backend:
     image: 'leave-server-ci-cd'
-    build: ./back-end/leave-management/
     container_name: leave-portal-server
     ports:
         - "8080:8080"
