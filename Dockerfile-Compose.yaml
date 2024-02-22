@@ -24,7 +24,7 @@ services:
   # Back-End 
   backend:
     image: 'leave-server-ci-cd'
-    container_name: leave-portal-server
+    container_name: leave-portal-server-ci-cd
     ports:
         - "8080:8080"
     links:
@@ -35,7 +35,7 @@ services:
   # Front-End
   frontend:
     image: 'leave-client-ci-cd'
-    container_name: leave-portal-client
+    container_name: leave-portal-client-ci-cd
     ports:
       - "8000:80"
     networks:
