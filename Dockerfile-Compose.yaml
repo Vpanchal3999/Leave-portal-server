@@ -1,0 +1,47 @@
+services:
+  db:
+    image: 'postgres:latest'
+    container_name: database
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5434:5432"
+    volumes:
+      - D:\POC\Docker2-Individual\postgres_datapart:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - leave_portal_network
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=vishesh3999@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=vish@123
+    ports:
+      - "5050:80"
+    networks:
+      - leave_portal_network
+  # Back-End 
+  backend:
+    image: 'leave-server-ci-cd'
+    build: ./back-end/leave-management/
+    container_name: leave-portal-server
+    ports:
+        - "8080:8080"
+    links:
+      - db
+    restart: always
+    networks:
+      - leave_portal_network
+  # Front-End
+  frontend:
+    image: 'leave-client-ci-cd'
+    container_name: leave-portal-client
+    ports:
+      - "8000:80"
+    networks:
+      - leave_portal_network
+    restart: always
+networks:
+  leave_portal_network:
+          driver: bridge
